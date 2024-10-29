@@ -29,7 +29,7 @@ function Login() {
     try {
       e.preventDefault();
       setLoad(!load);
-      const rs = await axios.post("/auth/AdminLogin", input);
+      const rs = await axios.post("/auth/adminLogin", input);
       localStorage.setItem("token", rs.data.token);
       const rs1 = await axios.get("/auth/me", {
         headers: { Authorization: "Bearer " + rs.data.token },
