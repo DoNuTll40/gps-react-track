@@ -9,10 +9,10 @@ function Header() {
       <div className="border p-2 rounded-md shadow-sm">
         <div className="flex justify-between items-center">
           <div className="flex gap-2 items-center">
-            <div className="w-11">
+            <div className="w-11 h-11">
               <img
-                className="max-w-11 rounded-full"
-                src="https://picsum.photos/id/125/200"
+                className="max-w-11 max-h-11 rounded-full"
+                src="https://img.lovepik.com/free-png/20211201/lovepik-gps-satellite-navigation-png-image_401246127_wh1200.png"
                 alt="logo"
               />
             </div>

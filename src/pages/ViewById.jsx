@@ -39,7 +39,7 @@ export default function ViewById() {
         return <div className="flex justify-center my-4 text-red-500">{error}</div>; // แสดงข้อความผิดพลาด
     }
 
-    const mapEmbedURL = `https://www.google.com/maps/embed/v1/place?key=AIzaSyD5Bvhv2n0YbMayjQWwV2NwNpH3DMIqAcM&q=${visit.latitude},${visit.longitude}&zoom=15&maptype=roadmap&language=th`;
+    const mapEmbedURL = `https://www.google.com/maps/embed/v1/place?key=AIzaSyD5Bvhv2n0YbMayjQWwV2NwNpH3DMIqAcM&q=${visit.latitude},${visit.longitude}&zoom=17&maptype=roadmap&language=th`;
 
     return (
         <div className="inset-0 flex justify-center my-4">
@@ -48,7 +48,7 @@ export default function ViewById() {
                     <iframe
                         loading="lazy"
                         src={mapEmbedURL}
-                        style={{ border: 0, width: '100%', height: '250px' }} // ปรับขนาดของ iframe
+                        style={{ border: 0, width: '100%', height: '350px' }} // ปรับขนาดของ iframe
                         allowFullScreen
                     ></iframe>
                 </CardHeader>
