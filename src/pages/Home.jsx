@@ -31,7 +31,7 @@ export default function Home() {
   const TABLE_ROWS = visitWeb;
 
   const truncateUserAgent = (userAgent) => {
-    const maxLength = 30;
+    const maxLength = 20;
     return userAgent.length > maxLength
       ? userAgent.slice(0, maxLength) + "..."
       : userAgent;
