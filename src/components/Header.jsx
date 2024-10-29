@@ -1,8 +1,10 @@
 
+import { useNavigate } from "react-router-dom";
 import UseAuth from "../hooks/UseAuth";
 
 function Header() {
   const { user, logout } = UseAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col gap-4 sticky">
@@ -22,7 +24,7 @@ function Header() {
             <p>ผู้ใช้งาน {user.user_firstname}</p>
             <button
               className="p-2 px-4 text-xs md:text-sm border-2 border-red-600 rounded-md text-red-600 font-bold hover:bg-red-600 hover:text-white transition ease-in-out scale-100 active:scale-95"
-              onClick={() => logout()}
+              onClick={() => {logout(); navigate('/');}}
             >
               ออกจากระบบ
             </button>

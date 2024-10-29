@@ -43,7 +43,6 @@ const userRouter = createBrowserRouter([
 
 function AppRoute() {
   const { user } = UseAuth();
-
   const finalRouter = user?.user_id ? userRouter : guestRouter;
   return <RouterProvider router={finalRouter} />;
 }
