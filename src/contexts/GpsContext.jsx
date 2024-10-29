@@ -2,16 +2,41 @@
 
 import axios from "../configs/axios";
 import { createContext, useEffect, useState } from 'react'
+import WSHook from "../hooks/WSHook";
 
 const GpsContext = createContext()
 
 function GpsContextProvider(props) {
 
     const [ visitWeb, setVisitWeb ] = useState([]);
+    const { notifications } = WSHook();
+
+    console.log(notifications)
 
     let token = localStorage.getItem('token');
 
     useEffect(() => {
+
+        const getVisit = async () => {
+            try {
+                const response = await axios.get('/api/gps', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+    
+                setVisitWeb(response.data.result)
+            }catch(err){
+                console.log(err)
+            }
+        }
+        
+        getVisit();
+
+    }, [token, notifications])
+
+    useEffect(() => {
+
         const run = async () => {
             try {
 
@@ -25,21 +50,6 @@ function GpsContextProvider(props) {
         }
         run()
 
-        const getVisit = async () => {
-            try {
-                const response = await axios.get('/api/gps', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-
-                setVisitWeb(response.data.result)
-            }catch(err){
-                console.log(err)
-            }
-        }
-
-        getVisit();
     }, [token])
 
     const value = { visitWeb }

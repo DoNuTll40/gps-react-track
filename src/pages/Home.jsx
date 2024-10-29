@@ -61,8 +61,6 @@ export default function Home() {
     }
   }
 
-  console.log(typeof visitWeb);
-
   if (visitWeb == "") {
     return (
       <div className=" inset-0 flex justify-center items-center gap-2 my-4">
