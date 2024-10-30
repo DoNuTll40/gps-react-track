@@ -26,6 +26,7 @@ function Login() {
   };
 
   const hdlSubmit = async (e) => {
+    const loadingToast = toast.loading('กำลังโหลด...');
     try {
       e.preventDefault();
       setLoad(!load);
@@ -36,13 +37,24 @@ function Login() {
       });
 
       if (rs1.status === 200) {
-        setLoad(false);
-        setUser(rs1.data);
+        toast.update(loadingToast, {
+          render: 'เข้าสู่ระบบสำเร็จ',
+          type: 'success',
+          isLoading: false,
+          autoClose: 1500,
+          onClose: () => {            
+            setLoad(false);
+            setUser(rs1.data);
+          }
+        });
       }
     } catch (err) {
       setLoad(false);
-      toast.error(err.response.data.message, {
-        theme: "colored",
+      toast.update(loadingToast, {
+        render: err.response.data.message,
+        type: 'error',
+        isLoading: false,
+        autoClose: 3000,
       });
       console.log(err);
     }
@@ -80,8 +92,8 @@ function Login() {
               required
             />
           </div>
-          <Button type="submit" className="mt-14 text-md" fullWidth>
-            ยืนยัน
+          <Button type="submit" className="mt-14 text-md disabled:opacity-50" disabled={load} fullWidth>
+            {load ? <div className="border-gray-300 h-6 w-6 animate-spin rounded-full border-4 border-t-gray-900 mx-auto" /> : "ยืนยัน"}
           </Button>
         </form>
       </Card>

@@ -6,7 +6,7 @@ import "moment/locale/th"; // ใช้ภาษาไทย
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  const { visitWeb } = GpsAuth();
+  const { visitWeb, loading } = GpsAuth();
 
   const navigate = useNavigate();
 
@@ -61,7 +61,7 @@ export default function Home() {
     }
   }
 
-  if (visitWeb == "") {
+  if (loading) {
     return (
       <div className=" inset-0 flex justify-center items-center gap-2 my-4">
         <h1 className="font-semibold text-md md:text-xl select-none">
@@ -96,142 +96,148 @@ export default function Home() {
             </tr>
           </thead>
           <tbody className="cursor-default">
-            {TABLE_ROWS.map(
-              (
-                {
-                  id,
-                  website,
-                  ipAddress,
-                  userAgent,
-                  language,
-                  platform,
-                  vendor,
-                  latitude,
-                  longitude,
-                  visitCount,
-                  updatedAt,
-                  mapURL,
-                },
-                index
-              ) => {
-                const isLast = index === TABLE_ROWS.length - 1;
-                const classes = isLast
-                  ? "p-4"
-                  : "p-4 border-b border-blue-gray-50";
-
-                return (
-                  <tr
-                    key={id}
-                    className=" hover:bg-blue-gray-50 duration-100 transition-all ease-in-out cursor-pointer"
-                    onClick={() => navigate(`view/${encodeURIComponent(`3E@rth@106/${id}/@s@k0nn@k0n`)}`)}
-                  >
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {index + 1}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {website}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {ipAddress}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                        title={userAgent}
-                      >
-                        {truncateUserAgent(userAgent)}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {language}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {platform}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {vendor}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {latitude.toFixed(5)}, {longitude.toFixed(5)}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {visitCount}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {getRelativeTime(updatedAt)}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        as="a"
-                        href={mapURL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        variant="small"
-                        color="blue"
-                        className="font-medium"
-                      >
-                        View Map
-                      </Typography>
-                    </td>
-                  </tr>
-                );
-              }
+            {visitWeb.length === 0 ? 
+            <tr>
+              <td className="text-center h-12 font-semibold text-sm md:text-lg no-underline md:underline" colSpan={TABLE_HEAD.length}>ไม่พบข้อมูล</td>
+            </tr>
+             : (
+              TABLE_ROWS.map(
+                (
+                  {
+                    id,
+                    website,
+                    ipAddress,
+                    userAgent,
+                    language,
+                    platform,
+                    vendor,
+                    latitude,
+                    longitude,
+                    visitCount,
+                    updatedAt,
+                    mapURL,
+                  },
+                  index
+                ) => {
+                  const isLast = index === TABLE_ROWS.length - 1;
+                  const classes = isLast
+                    ? "p-4"
+                    : "p-4 border-b border-blue-gray-50";
+  
+                  return (
+                    <tr
+                      key={id}
+                      className=" hover:bg-blue-gray-50 duration-100 transition-all ease-in-out cursor-pointer"
+                      onClick={() => navigate(`view/${encodeURIComponent(`3E@rth@106/${id}/@s@k0nn@k0n`)}`)}
+                    >
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {index + 1}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {website}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {ipAddress}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                          title={userAgent}
+                        >
+                          {truncateUserAgent(userAgent)}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {language}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {platform}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {vendor}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {latitude.toFixed(5)}, {longitude.toFixed(5)}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {visitCount}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {getRelativeTime(updatedAt)}
+                        </Typography>
+                      </td>
+                      <td className={classes} onClick={ (e) => {e.stopPropagation()}}>
+                        <Typography
+                          as="a"
+                          href={mapURL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          variant="small"
+                          color="blue"
+                          className="font-medium hover:underline underline-offset-2"
+                        >
+                          View Map
+                        </Typography>
+                      </td>
+                    </tr>
+                  );
+                }
+              )
             )}
           </tbody>
         </table>
