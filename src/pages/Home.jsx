@@ -38,7 +38,7 @@ export default function Home() {
   };
 
   const truncateWebsiteName = (website) => {
-    const maxLength = 30;
+    const maxLength = 28;
     return website.length > maxLength
       ? website.slice(0, maxLength) + "..."
       : website;

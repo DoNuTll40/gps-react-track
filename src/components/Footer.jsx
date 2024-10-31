@@ -5,7 +5,7 @@ export default function Footer() {
 
   return (
     <footer className="text-center text-xs md:text-sm">
-        <p><sup>&copy;</sup> {Year} donut-ll40 development v.0.5.1</p>
+        <p><sup>&copy;</sup> {Year} donut-ll40 development v.0.7.9</p>
     </footer>
   )
 }
