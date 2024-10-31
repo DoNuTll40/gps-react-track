@@ -48,7 +48,7 @@ export default function ViewById() {
                 const rs = await axiosURL.get(checkIP)
                 if(rs.status === 200){
                     setIpDeatil(rs.data)
-                    if(rs.data.status === "fail"){
+                    if(rs.data.success === false){
                         setIpDeatil({ message: "Fail" })
                     }
                 }
