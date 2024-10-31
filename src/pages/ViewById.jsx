@@ -41,8 +41,8 @@ export default function ViewById() {
             }
         };
         
+        setLoadingIP(true)
         const checkIPAddress = async () => {
-            setLoadingIP(true)
             try {
                 const rs = await axiosURL.get(checkIP)
                 if(rs.status === 200){
@@ -61,7 +61,7 @@ export default function ViewById() {
         if (visit) {
             checkIPAddress();
         }
-        
+        checkIPAddress();
         getVisitById();
     }, [decode, token, checkIP]);
     
