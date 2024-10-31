@@ -53,6 +53,7 @@ export default function ViewById() {
                 }
             }catch(err){
                 console.log(err)
+                setIpDeatil({ message: "Fail" })
             } finally {
                 setLoadingIP(false)
             }
