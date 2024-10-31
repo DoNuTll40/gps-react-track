@@ -151,6 +151,7 @@ export default function Home() {
                           variant="small"
                           color="blue-gray"
                           className="font-normal"
+                          title={website}
                         >
                           {truncateWebsiteName(website)}
                         </Typography>
