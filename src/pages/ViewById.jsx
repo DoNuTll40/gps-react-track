@@ -18,7 +18,8 @@ export default function ViewById() {
     const decode = decodeURIComponent(split).split('/')[1];
     let token = localStorage.getItem('token');
 
-    const checkIP = `http://ip-api.com/json/${visit?.ipAddress}?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,asname,reverse,mobile,proxy,hosting,query`;
+    // const checkIP = `http://ip-api.com/json/${visit?.ipAddress}?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,asname,reverse,mobile,proxy,hosting,query`;
+    const checkIP = `https://ipwho.is/${visit?.ipAddress}?output=json&security=1`;
     
     useEffect(() => {
 
@@ -93,24 +94,24 @@ export default function ViewById() {
                     ></iframe>
                 </CardHeader>
                 <CardBody>
-                    <div className=" grid grid-cols-1 sm:grid-cols-2 w-full transform ease-in-out duration-150 transition-all">
+                    <div className=" grid grid-cols-1 sm:grid-cols-2 w-full transform ease-in-out duration-150 transition-all scale-90 sm:scale-100">
                         {/* ข้อมูลผู้ใช้ */}
                         <div className="w-[90%] mb-4">
                             <h3 className="text-lg font-semibold mb-2">ข้อมูลผู้ใช้</h3>
-                            <p className="text-gray-700"><strong>IP Address:</strong> {visit.ipAddress}</p>
+                            <p className="text-gray-700 line-clamp-1"><strong>IP Address:</strong> {visit.ipAddress}</p>
                             <p className="text-gray-700 text-wrap line-clamp-2" title={visit.userAgent}><strong>Browser:</strong> {visit.userAgent}</p>
-                            <p className="text-gray-700"><strong>Language:</strong> {visit.language}</p>
-                            <p className="text-gray-700"><strong>Platform:</strong> {visit.platform}</p>
+                            <p className="text-gray-700 line-clamp-1"><strong>Language:</strong> {visit.language}</p>
+                            <p className="text-gray-700 line-clamp-1"><strong>Platform:</strong> {visit.platform}</p>
 
                             <h3 className="text-lg font-semibold mt-4">ข้อมูลการเยี่ยมชม</h3>
                             <p className="text-gray-700 text-wrap line-clamp-1" title={visit.website}><strong>Website:</strong> {visit.website}</p>
-                            <p className="text-gray-700"><strong>Page Viewed:</strong> {visit.pageViewed}</p>
-                            <p className="text-gray-700"><strong>Visit Count:</strong> {visit.visitCount}</p>
-                            <p className="text-gray-700"><strong>Last Visited:</strong> {new Date(visit.createdAt).toLocaleDateString()}</p>
+                            <p className="text-gray-700 line-clamp-1"><strong>Page Viewed:</strong> {visit.pageViewed}</p>
+                            <p className="text-gray-700 line-clamp-1"><strong>Visit Count:</strong> {visit.visitCount}</p>
+                            <p className="text-gray-700 line-clamp-1"><strong>Last Visited:</strong> {new Date(visit.createdAt).toLocaleDateString()}</p>
 
                             <h3 className="text-lg font-semibold mt-4 mb-2">ข้อมูลหน้าจอ</h3>
-                            <p className="text-gray-700"><strong>Screen Size:</strong> {visit.screenWidth} x {visit.screenHeight}</p>
-                            <p className="text-gray-700"><strong>Color Depth:</strong> {visit.screenColorDepth}-bit</p>
+                            <p className="text-gray-700 line-clamp-1"><strong>Screen Size:</strong> {visit.screenWidth} x {visit.screenHeight}</p>
+                            <p className="text-gray-700 line-clamp-1"><strong>Color Depth:</strong> {visit.screenColorDepth}-bit</p>
                         </div>
 
                         {/* ข้อมูลหน้าจอและตำแหน่งที่ตั้ง */}
@@ -125,20 +126,23 @@ export default function ViewById() {
                                 <p>ไม่พบข้อมูล</p>
                             ) : (
                                 <>
-                                    <p className="text-gray-700"><strong>Country:</strong> {ipDetail.country} ({ipDetail.countryCode})</p>
-                                    <p className="text-gray-700"><strong>Region:</strong> {ipDetail.regionName} ({ipDetail.region})</p>
-                                    <p className="text-gray-700"><strong>City:</strong> {ipDetail.city}</p>
-                                    <p className="text-gray-700"><strong>Zip Code:</strong> {ipDetail.zip}</p>
-                                    <p className="text-gray-700"><strong>Latitude:</strong> {ipDetail.lat}</p>
-                                    <p className="text-gray-700"><strong>Longitude:</strong> {ipDetail.lon}</p>
-                                    <p className="text-gray-700"><strong>Timezone:</strong> {ipDetail.timezone}</p>
-                                    <p className="text-gray-700"><strong>ISP:</strong> {ipDetail.isp}</p>
-                                    <p className="text-gray-700"><strong>Organization:</strong> {ipDetail.org}</p>
-                                    <p className="text-gray-700"><strong>AS Name:</strong> {ipDetail.asname}</p>
-                                    <p className="text-gray-700"><strong>Reverse DNS:</strong> {ipDetail.reverse}</p>
-                                    <p className="text-gray-700"><strong>Mobile:</strong> {ipDetail.mobile ? 'Yes' : 'No'}</p>
-                                    <p className="text-gray-700"><strong>Proxy:</strong> {ipDetail.proxy ? 'Yes' : 'No'}</p>
-                                    <p className="text-gray-700"><strong>Hosting:</strong> {ipDetail.hosting ? 'Yes' : 'No'}</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>ประเทศ:</strong> {ipDetail?.country} ({ipDetail?.country_code})</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>ทวีป:</strong> {ipDetail?.continent} ({ipDetail?.continent_code})</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>ภูมิภาค:</strong> {ipDetail?.region_name} ({ipDetail?.region})</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>เมือง:</strong> {ipDetail?.city}</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>รหัสไปรษณีย์:</strong> {ipDetail?.postal}</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>ละติจูด:</strong> {ipDetail?.latitude}</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>ลองจิจูด:</strong> {ipDetail?.longitude}</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>เขตเวลา:</strong> {ipDetail?.timezone?.id} ({ipDetail?.timezone?.utc})</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>เวลาปัจจุบัน:</strong> {new Date(ipDetail?.timezone?.current_time).toLocaleString("th-TH")}</p>
+                                    <p className="text-gray-700 line-clamp-1" title={ipDetail?.connection?.isp}><strong>ผู้ให้บริการ (ISP):</strong> {ipDetail?.connection?.isp}</p>
+                                    <p className="text-gray-700 line-clamp-1" title={ipDetail?.connection?.org}><strong>องค์กร:</strong> {ipDetail?.connection?.org}</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>หมายเลข AS:</strong> {ipDetail?.connection?.asn}</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>โดเมน:</strong> {ipDetail?.connection?.domain}</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>รหัสโทรศัพท์:</strong> +{ipDetail?.calling_code}</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>ประเทศที่ติดกัน:</strong> {ipDetail?.borders?.split(',').join(', ')}</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>เป็นสมาชิก EU:</strong> {ipDetail?.is_eu ? 'ใช่' : 'ไม่ใช่'}</p>
+                                    <p className="text-gray-700 line-clamp-1"><strong>ธงชาติ:</strong> <img src={ipDetail?.flag?.img} alt="ธงชาติ" className="inline-block w-6 h-4" /></p>
                                 </>
                             )}
                         </div>
