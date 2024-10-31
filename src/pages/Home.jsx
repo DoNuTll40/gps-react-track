@@ -37,6 +37,13 @@ export default function Home() {
       : userAgent;
   };
 
+  const truncateWebsiteName = (website) => {
+    const maxLength = 30;
+    return website.length > maxLength
+      ? website.slice(0, maxLength) + "..."
+      : website;
+  };
+
   function getRelativeTime(isoString) {
     const date = moment(isoString); // แปลง ISO เป็น moment object
     const now = moment();
@@ -145,7 +152,7 @@ export default function Home() {
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {website}
+                          {truncateWebsiteName(website)}
                         </Typography>
                       </td>
                       <td className={classes}>
