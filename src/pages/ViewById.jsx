@@ -149,7 +149,7 @@ export default function ViewById() {
                     </div>
 
                     <h3 className="text-lg font-semibold mt-4 mb-2">ดูตำแหน่งบนแผนที่</h3>
-                    <p className="text-blue-500 underline hover:underline-offset-2 mb-4">
+                    <p className="text-blue-500 underline hover:underline-offset-2 mb-4 w-fit">
                         <a href={visit.mapURL} target="_blank" rel="noopener noreferrer">ดูตำแหน่งใน Google Maps</a>
                     </p>
 

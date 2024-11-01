@@ -224,7 +224,7 @@ export default function Home() {
                         <Typography
                           variant="small"
                           color="blue-gray"
-                          className="font-normal"
+                          className="font-normal text-xs bg-blue-gray-50 px-2 rounded-full py-[4px] pl-3 pt-[5px] shadow-md"
                         >
                           {getRelativeTime(updatedAt)}
                         </Typography>
