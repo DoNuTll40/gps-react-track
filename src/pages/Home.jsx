@@ -81,7 +81,7 @@ export default function Home() {
 
   return (
     <div className="px-4 md:px-0">
-        <p className="text-center my-4 font-semibold text-md md:text-lg">ข้อมูล IP Address การเข้าใช้งานเว็บของเรา</p>
+        <p className="max-w-[90rem] mx-auto flex items-center px-4 bg-blue-gray-50 h-12 rounded-s-full mt-6 mb-1 font-semibold text-md md:text-lg select-none">ข้อมูล IP Address การเข้าใช้งานเว็บของเรา</p>
       <Card className="h-full max-w-[90rem] overflow-auto my-4 mx-auto">
         <table className="min-w-max text-left">
           <thead>

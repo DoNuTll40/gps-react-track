@@ -8,10 +8,13 @@ import {
   Typography,
   Input,
 } from "@material-tailwind/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
 function Login() {
   const { setUser } = useAuth();
   const [load, setLoad] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
   const [input, setInput] = useState({
     username: "",
     password: "",
@@ -41,7 +44,7 @@ function Login() {
           render: 'เข้าสู่ระบบสำเร็จ',
           type: 'success',
           isLoading: false,
-          autoClose: 1500,
+          autoClose: 1000,
           onClose: () => {            
             setLoad(false);
             setUser(rs1.data);
@@ -51,21 +54,18 @@ function Login() {
     } catch (err) {
       setLoad(false);
       toast.update(loadingToast, {
-        render: err.response.data.message,
+        render: err?.response?.data?.message || "เกิดข้อผิดพลาด",
         type: 'error',
         isLoading: false,
         autoClose: 3000,
       });
-      console.log(err);
     }
   };
 
-  // <div className="border-gray-300 h-8 w-8 animate-spin rounded-full border-4 border-t-green-600" />
-
   return (
     <div className=" inset-0 h-screen w-full flex justify-center items-center">
-      <Card color="transparent" shadow={true} className="px-4 pb-5 pt-5">
-        <img className="w-56 max-w-screen-lg sm:w-64 mx-auto" src="https://cdn.vectorstock.com/i/500p/44/39/map-with-two-location-icon-gps-navigation-vector-53174439.jpg" alt="photo" />
+      <Card color="transparent" shadow={true} className="px-4 pb-5 pt-5 shadow-lg">
+        <img className="w-56 max-w-screen-lg sm:w-64 mx-auto pointer-events-none select-none" src="https://cdn.vectorstock.com/i/500p/44/39/map-with-two-location-icon-gps-navigation-vector-53174439.jpg" alt="photo" />
         <Typography variant="h4" color="blue-gray" className="mx-auto my-2">
           เข้าสู่ระบบ
         </Typography>
@@ -82,15 +82,19 @@ function Login() {
               onChange={hdlChange}
               required
             />
-            <Input
-              label="Password"
-              name="password"
-              type="password"
-              size="lg"
-              placeholder="********"
-              onChange={hdlChange}
-              required
-            />
+            <div className="relative">
+            <FontAwesomeIcon className={`absolute end-3 top-[0.85rem] opacity-50 hover:opacity-100 cursor-pointer z-10 duration-100 transform ${showPassword && "pr-[0.5px]"}`} icon={showPassword ? faEye : faEyeSlash } onClick={ () => setShowPassword(!showPassword) } />
+              <Input
+                className="z-0"
+                label="Password"
+                name="password"
+                type={showPassword ? "password" : "text"}
+                size="lg"
+                placeholder="********"
+                onChange={hdlChange}
+                required
+              />
+            </div>
           </div>
           <Button type="submit" className="mt-14 text-md disabled:opacity-50" disabled={load} fullWidth>
             {load ? <div className="border-gray-300 h-6 w-6 animate-spin rounded-full border-4 border-t-gray-900 mx-auto" /> : "ยืนยัน"}

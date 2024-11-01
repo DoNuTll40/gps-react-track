@@ -3,10 +3,12 @@ import UseAuth from "../hooks/UseAuth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUserAlt, faUsersGear, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
+import { Button } from "@material-tailwind/react";
 
 function Header() {
   const { user, logout } = UseAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const navigate = useNavigate();
 
@@ -34,9 +36,21 @@ function Header() {
     return () => mediaQuery.removeListener(handleResize);
   }, [isOpen])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="flex flex-col inset-y-0 z-10 backdrop-blur-md bg-white/50 gap-4 sticky select-none">
-      <div className="border p-2 rounded-md shadow-sm">
+    <div className={`flex flex-col ${!isScrolled ? "inset-y-1" : "inset-y-0"} z-10 backdrop-blur-md bg-white/50 gap-4 sticky select-none`}>
+      <div className={`p-2 transition-all transform ease-in-out duration-200 mx-auto ${!isScrolled ? "w-[90rem] rounded-full border-2 shadow-md" : "w-full rounded-none"}`}>
         <div className="flex h-11 justify-between items-center">
           <div className="flex gap-2 items-center">
             <div className="w-11 h-11 hidden sm:block">
@@ -52,15 +66,17 @@ function Header() {
           </div>
           <div className="text-xs md:text-sm gap-2 items-center hidden sm:flex select-none">
             <p>ผู้ใช้งาน {user.user_firstname}</p>
-            <button
-              className="p-2 px-4 text-xs md:text-sm border-2 border-red-600 rounded-md text-red-600 font-bold hover:bg-red-600 hover:text-white transition ease-in-out scale-100 active:scale-95"
+            <Button
+              variant="text"
+              color="red"
+              className="p-2 px-4 text-xs md:text-sm border-2 border-red-600 rounded-full text-red-600 font-bold hover:bg-red-600 hover:text-white active:text-white transition ease-in-out scale-100 active:scale-95"
               onClick={() => {
                 logout();
                 navigate("/");
               }}
             >
               ออกจากระบบ
-            </button>
+            </Button>
           </div>
           <FontAwesomeIcon
             className="block text-lg sm:hidden mr-2 transition-all duration-150 ease-in-out transform hover:cursor-pointer scale-100 active:scale-90 hover:bg-blue-gray-50 active:bg-blue-gray-50 p-4 rounded-md"
@@ -77,15 +93,17 @@ function Header() {
                 <p><FontAwesomeIcon icon={faUserAlt} /> <b>ผู้ใช้งาน</b> : {user.user_firstname} {user.user_lastname}</p>
                 <p><FontAwesomeIcon icon={faUsersGear} /> <b>ตำแหน่ง</b> : {(user.user_role).toLowerCase()}</p>
               </div>
-              <button
-                className="p-2 px-4 text-xs md:text-sm border-2 border-red-600 rounded-md text-red-600 font-bold hover:bg-red-600 hover:text-white transition ease-in-out scale-100 active:scale-95"
+              <Button
+                variant="text"
+                color="red"
+                className="p-2 px-4 text-xs md:text-sm border-2 border-red-600 rounded-md text-red-600 font-bold hover:bg-red-600 hover:text-white active:text-white transition ease-in-out scale-100 active:scale-95"
                 onClick={() => {
                   logout();
                   navigate("/");
                 }}
               >
                 ออกจากระบบ
-              </button>
+              </Button>
             </div>
           )}
         </div>
