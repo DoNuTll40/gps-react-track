@@ -50,7 +50,7 @@ function Header() {
 
   return (
     <div className={`flex flex-col ${!isScrolled ? "inset-y-1" : "inset-y-0"} z-10 backdrop-blur-md bg-white/50 gap-4 sticky select-none`}>
-      <div className={`p-2 transition-all transform ease-in-out duration-200 mx-auto ${!isScrolled ? "w-[90rem] rounded-full border-2 shadow-md" : "w-full rounded-none"}`}>
+      <div className={`p-2 transition-all transform ease-in-out duration-200 mx-auto ${!isScrolled ? "w-full sm:w-[90rem] sm:rounded-full sm:border-2 sm:shadow-md" : "w-full rounded-none"}`}>
         <div className="flex h-11 justify-between items-center">
           <div className="flex gap-2 items-center">
             <div className="w-11 h-11 hidden sm:block">
